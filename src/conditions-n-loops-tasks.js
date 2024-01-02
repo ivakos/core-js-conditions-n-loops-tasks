@@ -470,46 +470,22 @@ function sortByAsc(arr) {
  */
 
 function shuffleChar(str, iterations) {
-  const characters = str.split('');
-  const resArr = new Array(str.length);
-
-  if (str.length % 2 === 0) {
-    for (let iter = 0; iter < iterations; iter += 1) {
-      for (let i = 0, j = 0, k = 0; i < str.length; i += 1) {
-        if (i % 2 === 0) {
-          resArr[j] = characters[i];
-          j += 1;
-        } else {
-          resArr[resArr.length / 2 + k] = characters[i];
-          k += 1;
-        }
-      }
-      for (let i = 0; i < characters.length; i += 1) {
-        characters[i] = resArr[i];
+  let result = str;
+  for (let j = 0; j < iterations; j += 1) {
+    let even = '';
+    let odd = '';
+    for (let i = 0; i < result.length; i += 1) {
+      if (i % 2) {
+        odd += result[i];
+      } else {
+        even += result[i];
       }
     }
-  } else {
-    for (let iter = 0; iter < iterations; iter += 1) {
-      for (let i = 0, j = 0, k = 0; i < str.length; i += 1) {
-        if (i % 2 === 0) {
-          resArr[j] = characters[i];
-          j += 1;
-        } else {
-          resArr[Math.floor(resArr.length / 2) + 1 + k] = characters[i];
-          k += 1;
-        }
-      }
-      for (let i = 0; i < characters.length; i += 1) {
-        characters[i] = resArr[i];
-      }
+    result = even + odd;
+    if (result === str) {
+      return shuffleChar(str, iterations % (j + 1));
     }
   }
-
-  let result = '';
-  for (let i = 0; i < resArr.length; i += 1) {
-    result += resArr[i];
-  }
-
   return result;
 }
 
